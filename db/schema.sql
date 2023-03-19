@@ -7,10 +7,12 @@ USE bank_crud_example;
 /* ********************************************************************************************************* */
 
 CREATE TABLE `iban_configs` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `country_code` char(2) NOT NULL,
   `check_digits` char(2) NOT NULL,
   `bank_code` char(4) NOT NULL,
-  `sort_code` char(6) NOT NULL
+  `sort_code` char(6) NOT NULL,
+  PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `currency` (
