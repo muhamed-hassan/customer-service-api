@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name = "master_account")
 @Entity
@@ -29,6 +30,9 @@ public class MasterAccount {
 	@ManyToOne
     @JoinColumn(name = "user_id")
 	private UserInfo userInfo;
+	
+	@Transient
+	private String iban;
 
 	public int getId() {
 		return id;
@@ -69,5 +73,13 @@ public class MasterAccount {
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}	
+	
+	public void toIban(IbanConfigs ibanConfigs) {		
+		this.iban = ibanConfigs.getCountryCode() + ibanConfigs.getCheckDigits() + ibanConfigs.getBankCode() + ibanConfigs.getSortCode() + accountNumber;
+	}
+	
+	public String getIban() {
+		return iban;
+	}
 	
 }
