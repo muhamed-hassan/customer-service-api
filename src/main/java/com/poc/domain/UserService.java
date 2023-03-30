@@ -48,6 +48,8 @@ public class UserService {
 		String generatedNumberString = generatedNumber + "";
 		String accountNumber = generatedNumberString.substring(0, generatedNumberString.length() - 2);
 		masterAccount.setAccountNumber(accountNumber);
+		
+		masterAccountRepository.save(masterAccount);
 	}
 	
 	public MasterAccount getUser(String nationalId) {
