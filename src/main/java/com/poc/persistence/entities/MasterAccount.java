@@ -1,5 +1,6 @@
 package com.poc.persistence.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,11 +25,11 @@ public class MasterAccount {
 	private float balance;
 	
 	@ManyToOne
-    @JoinColumn(name = "currency_id")
+    @JoinColumn(name = "currency_id", referencedColumnName = "id")
 	private Currency currency;
 	
-	@ManyToOne
-    @JoinColumn(name = "user_id")
+	@ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
 	private UserInfo userInfo;
 	
 	@Transient

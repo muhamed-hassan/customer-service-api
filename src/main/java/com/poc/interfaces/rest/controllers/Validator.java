@@ -21,7 +21,7 @@ public class Validator {
 			return "name is required";
 		}
 		name = name.trim();
-		if (!name.matches("[a-zA-Z ]{10,250}")) {
+		if (!name.matches("[a-zA-Z\\ ]{5,250}")) {
 			return "name contains invalid characters and shall contain letters only with maximum of 250";
 		}
 		
@@ -38,7 +38,7 @@ public class Validator {
 		if (dateOfBirthStr == null) {
 			return "dateOfBirth is required";
 		}
-		DateFormat dateFormat = new SimpleDateFormat();		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");		
 		Date dateOfBirth = dateFormat.parse(dateOfBirthStr);
 		if (dateOfBirth == null) {
 			return "dateOfBirth is wrongly formatted and shall be formatted as dd-MM-yyyy";
@@ -67,7 +67,7 @@ public class Validator {
 			return "city is required";
 		}
 		city = city.trim();
-		if (!city.matches("[a-zA-Z ]{5,50}")) {
+		if (!city.matches("[a-zA-Z\\ ]{3,50}")) {
 			return "city contains invalid characters and shall contain letters only with maximum of 50";
 		}	
 		
@@ -76,7 +76,7 @@ public class Validator {
 			return "region is required";
 		}
 		region = region.trim();
-		if (!region.matches("[a-zA-Z ]{5,50}")) {
+		if (!region.matches("[a-zA-Z\\ ]{5,50}")) {
 			return "region contains invalid characters and shall contain letters only with maximum of 50";
 		}		
 		
@@ -85,7 +85,7 @@ public class Validator {
 			return "buildingNumber is required";
 		}
 		buildingNumber = buildingNumber.trim();
-		if (!buildingNumber.matches("[a-zA-Z0-9 ]{5,50}")) {
+		if (!buildingNumber.matches("[a-zA-Z0-9\\ ]{5,50}")) {
 			return "buildingNumber contains invalid characters and shall contain alphanumeric characters only with maximum of 50";
 		}		
 		
@@ -94,7 +94,7 @@ public class Validator {
 			return "postalCode is required";
 		}
 		postalCode = postalCode.trim();	
-		if (!postalCode.matches("[0-9]{5}")) {
+		if (!postalCode.matches("[a-zA-Z0-9]{5}")) {
 			return "postalCode contains invalid characters and shall contain digits only with maximum of 5";
 		}
 		
@@ -135,7 +135,7 @@ public class Validator {
 			return "city is required";
 		}
 		city = city.trim();
-		if (!city.matches("[a-zA-Z ]{5,50}")) {
+		if (!city.matches("[a-zA-Z\\ ]{3,50}")) {
 			return "city contains invalid characters and shall contain letters only with maximum of 50";
 		}	
 		
@@ -144,7 +144,7 @@ public class Validator {
 			return "region is required";
 		}
 		region = region.trim();
-		if (!region.matches("[a-zA-Z ]{5,50}")) {
+		if (!region.matches("[a-zA-Z\\ ]{5,50}")) {
 			return "region contains invalid characters and shall contain letters only with maximum of 50";
 		}		
 		
@@ -153,7 +153,7 @@ public class Validator {
 			return "buildingNumber is required";
 		}
 		buildingNumber = buildingNumber.trim();
-		if (!buildingNumber.matches("[a-zA-Z0-9 ]{5,50}")) {
+		if (!buildingNumber.matches("[a-zA-Z0-9\\ ]{5,50}")) {
 			return "buildingNumber contains invalid characters and shall contain alphanumeric characters only with maximum of 50";
 		}		
 		
@@ -162,7 +162,7 @@ public class Validator {
 			return "postalCode is required";
 		}
 		postalCode = postalCode.trim();	
-		if (!postalCode.matches("[0-9]{5}")) {
+		if (!postalCode.matches("[a-zA-Z0-9]{5}")) {
 			return "postalCode contains invalid characters and shall contain digits only with maximum of 5";
 		}
 		

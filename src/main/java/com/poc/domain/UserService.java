@@ -34,7 +34,7 @@ public class UserService {
 	@Transactional
 	public void createUser(UserInfo userInfo) {
 		
-		userInfo = userInfoRepository.saveAndFlush(userInfo);
+		userInfo = userInfoRepository.save(userInfo);
 		
 		Currency sar = currencyRepository.findOne(1);
 		
@@ -46,7 +46,7 @@ public class UserService {
 		Random random = new Random(System.currentTimeMillis());        
 		long generatedNumber = Math.abs(random.nextLong());		        
 		String generatedNumberString = generatedNumber + "";
-		String accountNumber = generatedNumberString.substring(0, generatedNumberString.length() - 2);
+		String accountNumber = generatedNumberString.substring(0, 8);
 		masterAccount.setAccountNumber(accountNumber);
 		
 		masterAccountRepository.save(masterAccount);
@@ -78,9 +78,10 @@ public class UserService {
 	}
 	
 	@Transactional
-	public void removeUser(String nationalId) {		
-		masterAccountRepository.deleteByNationalId(nationalId);		
-		userInfoRepository.deleteByNationalId(nationalId);
+	public void removeUser(String nationalId) {	
+		
+		MasterAccount masterAccount = masterAccountRepository.getByNationalId(nationalId);
+		masterAccountRepository.delete(masterAccount);
 	}
 	
 }

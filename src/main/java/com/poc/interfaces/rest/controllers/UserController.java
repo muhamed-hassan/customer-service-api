@@ -46,7 +46,7 @@ public class UserController {
 		UserInfo userInfo = new UserInfo();
 		userInfo.setName(userInfoCreateModel.getName());
 		userInfo.setNationalId(userInfoCreateModel.getNationalId());		
-		DateFormat dateFormat = new SimpleDateFormat();		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");		
 		userInfo.setDateOfBirth(dateFormat.parse(userInfoCreateModel.getDateOfBirth()));
 		userInfo.setCellPhone(userInfoCreateModel.getCellPhone());
 		userInfo.setEmail(userInfoCreateModel.getEmail());
@@ -56,6 +56,8 @@ public class UserController {
 		address.setBuildingNumber(userInfoCreateModel.getBuildingNumber());
 		address.setPostalCode(userInfoCreateModel.getPostalCode());
 		userInfo.setAddress(address);
+		
+		userService.createUser(userInfo);
 		
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
@@ -96,12 +98,15 @@ public class UserController {
 		}
 		
 		userService.updateUser(userInfoUpdateModel);
+		
 		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(method = RequestMethod.DELETE, value = "{nationalId}")
 	public ResponseEntity<Object> removeUser(@PathVariable String nationalId) {
+		
 		userService.removeUser(nationalId);
+		
 		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 

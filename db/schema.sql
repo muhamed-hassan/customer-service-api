@@ -22,15 +22,6 @@ CREATE TABLE `currency` (
   UNIQUE KEY `code_UQ` (`code`)
 );
 
-CREATE TABLE `address` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `city` varchar(50) NOT NULL,
-  `region` varchar(50) NOT NULL,
-  `building_number` varchar(50) NOT NULL,
-  `postal_code` char(5) NOT NULL,
-  PRIMARY KEY (`id`)  
-);
-
 CREATE TABLE `user_info` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
@@ -38,13 +29,15 @@ CREATE TABLE `user_info` (
   `date_of_birth` date NOT NULL,
   `cell_phone` char(11) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `address_id` int unsigned NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `region` varchar(50) NOT NULL,
+  `building_number` varchar(50) NOT NULL,
+  `postal_code` char(5) NOT NULL,
   `version` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `national_id_UQ` (`national_id`),
   UNIQUE KEY `cell_phone_UQ` (`cell_phone`),
-  UNIQUE KEY `email_UQ` (`email`),
-  FOREIGN KEY (`address_id`) REFERENCES `address` (`id`)
+  UNIQUE KEY `email_UQ` (`email`)
 );
 
 CREATE TABLE `master_account` (
