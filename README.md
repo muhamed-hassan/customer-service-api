@@ -1,1 +1,1 @@
-#### Please visit the wiki for more info https://github.com/muhamed-hassan/<placeholder-of-repo-name>/wiki
+#### Please visit the wiki for more info https://github.com/muhamed-hassan/customer-service-api/wiki
