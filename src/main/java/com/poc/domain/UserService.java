@@ -36,12 +36,12 @@ public class UserService {
 		
 		userInfo = userInfoRepository.save(userInfo);
 		
-		Currency sar = currencyRepository.findOne(1);
+		Currency gbp = currencyRepository.findByCode("GBP");
 		
 		MasterAccount masterAccount = new MasterAccount();
 		masterAccount.setUserInfo(userInfo);
 		masterAccount.setBalance(0);
-		masterAccount.setCurrency(sar);
+		masterAccount.setCurrency(gbp);
 		
 		Random random = new Random(System.currentTimeMillis());        
 		long generatedNumber = Math.abs(random.nextLong());		        
