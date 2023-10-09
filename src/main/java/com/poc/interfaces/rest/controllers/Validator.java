@@ -67,7 +67,7 @@ public class Validator {
 			return "mailingAddress is required";
 		}
 		mailingAddress = mailingAddress.trim();
-		if (!mailingAddress.matches("[a-zA-Z0-9\\ ]{15,250}")) {
+		if (!mailingAddress.matches("[a-zA-Z0-9-,\\ ]{15,250}")) {
 			return "mailingAddress contains invalid characters and shall contain alphanumeric characters only with maximum of 250";
 		}			
 		
@@ -108,7 +108,7 @@ public class Validator {
 			return "mailingAddress is required";
 		}
 		mailingAddress = mailingAddress.trim();
-		if (!mailingAddress.matches("[a-zA-Z0-9\\ ]{15,250}")) {
+		if (!mailingAddress.matches("[a-zA-Z0-9-,\\ ]{15,250}")) {
 			return "mailingAddress contains invalid characters and shall contain alphanumeric characters only with maximum of 250";
 		}		
 		
