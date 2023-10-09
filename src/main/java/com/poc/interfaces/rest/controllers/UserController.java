@@ -19,7 +19,6 @@ import com.poc.domain.UserService;
 import com.poc.interfaces.rest.models.UserInfoCreateModel;
 import com.poc.interfaces.rest.models.UserInfoReadModel;
 import com.poc.interfaces.rest.models.UserInfoUpdateModel;
-import com.poc.persistence.entities.Address;
 import com.poc.persistence.entities.MasterAccount;
 import com.poc.persistence.entities.UserInfo;
 
@@ -50,12 +49,7 @@ public class UserController {
 		userInfo.setDateOfBirth(dateFormat.parse(userInfoCreateModel.getDateOfBirth()));
 		userInfo.setCellPhone(userInfoCreateModel.getCellPhone());
 		userInfo.setEmail(userInfoCreateModel.getEmail());
-		Address address = new Address();
-		address.setCity(userInfoCreateModel.getCity());
-		address.setRegion(userInfoCreateModel.getRegion());
-		address.setBuildingNumber(userInfoCreateModel.getBuildingNumber());
-		address.setPostalCode(userInfoCreateModel.getPostalCode());
-		userInfo.setAddress(address);
+		userInfo.setMailingAddress(userInfoCreateModel.getMailingAddress());
 		
 		userService.createUser(userInfo);
 		
@@ -79,10 +73,7 @@ public class UserController {
 		userInfoReadModel.setNationalId(masterAccount.getUserInfo().getNationalId());
 		userInfoReadModel.setCellPhone(masterAccount.getUserInfo().getCellPhone());
 		userInfoReadModel.setEmail(masterAccount.getUserInfo().getEmail());
-		userInfoReadModel.setCity(masterAccount.getUserInfo().getAddress().getCity());
-		userInfoReadModel.setRegion(masterAccount.getUserInfo().getAddress().getRegion());
-		userInfoReadModel.setBuildingNumber(masterAccount.getUserInfo().getAddress().getBuildingNumber());
-		userInfoReadModel.setPostalCode(masterAccount.getUserInfo().getAddress().getPostalCode());
+		userInfoReadModel.setMailingAddress(masterAccount.getUserInfo().getMailingAddress());
 		
 		return new ResponseEntity<UserInfoReadModel>(userInfoReadModel, HttpStatus.OK);
 	}

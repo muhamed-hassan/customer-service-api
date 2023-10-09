@@ -3,7 +3,6 @@ package com.poc.persistence.entities;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,8 +31,8 @@ public class UserInfo {
 		
 	private String email;
 	
-	@Embedded
-	private Address address;
+	@Column(name = "mailing_address")
+	private String mailingAddress;
 
 	@Version
 	private int version;
@@ -84,14 +83,14 @@ public class UserInfo {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}	
+
+	public String getMailingAddress() {
+		return mailingAddress;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setMailingAddress(String mailingAddress) {
+		this.mailingAddress = mailingAddress;
 	}
 
 	public int getVersion() {

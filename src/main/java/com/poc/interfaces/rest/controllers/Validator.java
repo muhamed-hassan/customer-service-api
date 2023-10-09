@@ -62,41 +62,14 @@ public class Validator {
 			return "email format is invalid";
 		}
 		
-		String city = userInfoCreateModel.getCity();
-		if (city == null) {
-			return "city is required";
+		String mailingAddress = userInfoCreateModel.getMailingAddress();
+		if (mailingAddress == null) {
+			return "mailingAddress is required";
 		}
-		city = city.trim();
-		if (!city.matches("[a-zA-Z\\ ]{3,50}")) {
-			return "city contains invalid characters and shall contain letters only with maximum of 50";
-		}	
-		
-		String region = userInfoCreateModel.getRegion();
-		if (region == null) {
-			return "region is required";
-		}
-		region = region.trim();
-		if (!region.matches("[a-zA-Z\\ ]{5,50}")) {
-			return "region contains invalid characters and shall contain letters only with maximum of 50";
-		}		
-		
-		String buildingNumber = userInfoCreateModel.getBuildingNumber();
-		if (buildingNumber == null) {
-			return "buildingNumber is required";
-		}
-		buildingNumber = buildingNumber.trim();
-		if (!buildingNumber.matches("[a-zA-Z0-9\\ ]{5,50}")) {
-			return "buildingNumber contains invalid characters and shall contain alphanumeric characters only with maximum of 50";
-		}		
-		
-		String postalCode = userInfoCreateModel.getPostalCode();
-		if (postalCode == null) {
-			return "postalCode is required";
-		}
-		postalCode = postalCode.trim();	
-		if (!postalCode.matches("[a-zA-Z0-9]{5}")) {
-			return "postalCode contains invalid characters and shall contain digits only with maximum of 5";
-		}
+		mailingAddress = mailingAddress.trim();
+		if (!mailingAddress.matches("[a-zA-Z0-9\\ ]{15,250}")) {
+			return "mailingAddress contains invalid characters and shall contain alphanumeric characters only with maximum of 250";
+		}			
 		
 		return null;
 	}
@@ -130,41 +103,14 @@ public class Validator {
 			return "email format is invalid";
 		}
 		
-		String city = userInfoUpdateModel.getCity();
-		if (city == null) {
-			return "city is required";
+		String mailingAddress = userInfoUpdateModel.getMailingAddress();
+		if (mailingAddress == null) {
+			return "mailingAddress is required";
 		}
-		city = city.trim();
-		if (!city.matches("[a-zA-Z\\ ]{3,50}")) {
-			return "city contains invalid characters and shall contain letters only with maximum of 50";
-		}	
-		
-		String region = userInfoUpdateModel.getRegion();
-		if (region == null) {
-			return "region is required";
-		}
-		region = region.trim();
-		if (!region.matches("[a-zA-Z\\ ]{5,50}")) {
-			return "region contains invalid characters and shall contain letters only with maximum of 50";
+		mailingAddress = mailingAddress.trim();
+		if (!mailingAddress.matches("[a-zA-Z0-9\\ ]{15,250}")) {
+			return "mailingAddress contains invalid characters and shall contain alphanumeric characters only with maximum of 250";
 		}		
-		
-		String buildingNumber = userInfoUpdateModel.getBuildingNumber();
-		if (buildingNumber == null) {
-			return "buildingNumber is required";
-		}
-		buildingNumber = buildingNumber.trim();
-		if (!buildingNumber.matches("[a-zA-Z0-9\\ ]{5,50}")) {
-			return "buildingNumber contains invalid characters and shall contain alphanumeric characters only with maximum of 50";
-		}		
-		
-		String postalCode = userInfoUpdateModel.getPostalCode();
-		if (postalCode == null) {
-			return "postalCode is required";
-		}
-		postalCode = postalCode.trim();	
-		if (!postalCode.matches("[a-zA-Z0-9]{5}")) {
-			return "postalCode contains invalid characters and shall contain digits only with maximum of 5";
-		}
 		
 		return null;
 	}

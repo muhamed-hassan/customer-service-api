@@ -69,10 +69,7 @@ public class UserService {
 		
 		userInfo.setCellPhone(userInfoUpdateModel.getCellPhone());
 		userInfo.setEmail(userInfoUpdateModel.getEmail());
-		userInfo.getAddress().setCity(userInfoUpdateModel.getCity());
-		userInfo.getAddress().setRegion(userInfoUpdateModel.getRegion());
-		userInfo.getAddress().setBuildingNumber(userInfoUpdateModel.getBuildingNumber());
-		userInfo.getAddress().setPostalCode(userInfoUpdateModel.getPostalCode());
+		userInfo.setMailingAddress(userInfoUpdateModel.getMailingAddress());
 		
 		userInfoRepository.save(userInfo);
 	}

@@ -8,13 +8,7 @@ public abstract class UserInfoModel {
 	
 	private String email;
 	
-	private String city;
-	
-	private String region;
-	
-	private String buildingNumber;
-	
-	private String postalCode;
+	private String mailingAddress;
 	
 	public String getNationalId() {
 		return nationalId;
@@ -40,36 +34,12 @@ public abstract class UserInfoModel {
 		this.email = email;
 	}
 
-	public String getCity() {
-		return city;
+	public String getMailingAddress() {
+		return mailingAddress;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setMailingAddress(String mailingAddress) {
+		this.mailingAddress = mailingAddress;
 	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
-	public String getBuildingNumber() {
-		return buildingNumber;
-	}
-
-	public void setBuildingNumber(String buildingNumber) {
-		this.buildingNumber = buildingNumber;
-	}
-
-	public String getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}	
 	
 }
