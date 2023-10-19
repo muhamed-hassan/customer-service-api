@@ -1,11 +1,15 @@
 package com.poc.domain;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.poc.interfaces.rest.error_handler.exceptions.NoDataFoundException;
 import com.poc.interfaces.rest.models.UserInfoUpdateModel;
 import com.poc.persistence.entities.Currency;
 import com.poc.persistence.entities.IbanConfigs;
@@ -79,6 +83,26 @@ public class UserService {
 		
 		MasterAccount masterAccount = masterAccountRepository.getByNationalId(nationalId);
 		masterAccountRepository.delete(masterAccount);
+	}
+	
+	public List<MasterAccount> getUsers(int pageIndex) {
+		
+		IbanConfigs ibanConfigs = ibanConfigsRepository.findOne(1);
+		
+		int pageSize = 10;
+		Pageable pageRequest = new PageRequest(pageIndex, pageSize);
+		List<MasterAccount> page = masterAccountRepository.findAll(pageRequest).getContent();
+		
+		if (page.isEmpty()) {
+			throw new NoDataFoundException();
+		}
+		
+		for (int cursor = 0; cursor < page.size(); cursor++) {
+			MasterAccount currentElement = page.get(cursor);
+			currentElement.toIban(ibanConfigs);
+		}
+		
+		return page;
 	}
 	
 }

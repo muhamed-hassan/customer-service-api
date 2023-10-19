@@ -1,5 +1,7 @@
 package com.poc.interfaces.rest.controllers;
 
+import static com.poc.interfaces.rest.utils.DateHelper.DATE_FORMAT;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,105 +16,88 @@ import com.poc.interfaces.rest.models.UserInfoUpdateModel;
 @Component
 public class Validator {
 	
-	public String validate(UserInfoCreateModel userInfoCreateModel) throws ParseException {
+	public void validate(UserInfoCreateModel userInfoCreateModel) throws ParseException {
 		
 		String name = userInfoCreateModel.getName();
 		if (name == null) {
-			return "name is required";
+			throw new IllegalArgumentException("name is required");
 		}
 		name = name.trim();
 		if (!name.matches("[a-zA-Z\\ ]{5,250}")) {
-			return "name contains invalid characters and shall contain letters only with maximum of 250";
+			throw new IllegalArgumentException("name contains invalid characters and shall contain letters only with maximum of 250");
 		}
 		
-		String nationalId = userInfoCreateModel.getNationalId();
-		if (nationalId == null) {
-			return "nationalId is required";
-		}
-		nationalId = nationalId.trim();
-		if (!nationalId.matches("[0-9]{14}")) {
-			return "nationalId contains invalid characters and shall contain 14 digits only";
-		}
+		validateNationalId(userInfoCreateModel.getNationalId());
 		
 		String dateOfBirthStr = userInfoCreateModel.getDateOfBirth();
 		if (dateOfBirthStr == null) {
-			return "dateOfBirth is required";
+			throw new IllegalArgumentException("dateOfBirth is required");
 		}
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");		
+		DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);		
 		Date dateOfBirth = dateFormat.parse(dateOfBirthStr);
 		if (dateOfBirth == null) {
-			return "dateOfBirth is wrongly formatted and shall be formatted as dd-MM-yyyy";
+			throw new IllegalArgumentException("dateOfBirth is wrongly formatted and shall be formatted as dd-MM-yyyy");
 		}
 		
-		String cellPhone = userInfoCreateModel.getCellPhone();
-		if (cellPhone == null) {
-			return "cellPhone is required";
-		}
-		cellPhone = cellPhone.trim();
-		if (!cellPhone.matches("(07)[0-9]{9}")) {
-			return "cellPhone contains invalid characters and shall be in this form 07123456789";
-		}
+		validateCellPhone(userInfoCreateModel.getCellPhone());
 		
-		String email = userInfoCreateModel.getEmail();
-		if (email == null) {
-			return "email is required";
-		}
-		email = email.trim();
-		if (!email.matches("[a-zA-Z0-9_\\.]+(\\@)[a-zA-Z0-9]+(\\.)[a-zA-Z]+")) {
-			return "email format is invalid";
-		}
+		validateEmail(userInfoCreateModel.getEmail());
 		
-		String mailingAddress = userInfoCreateModel.getMailingAddress();
-		if (mailingAddress == null) {
-			return "mailingAddress is required";
-		}
-		mailingAddress = mailingAddress.trim();
-		if (!mailingAddress.matches("[a-zA-Z0-9-,\\ ]{15,250}")) {
-			return "mailingAddress contains invalid characters and shall contain alphanumeric characters only with maximum of 250";
-		}			
+		validateMailingAddress(userInfoCreateModel.getMailingAddress());
+	}	
+	
+	public void validate(UserInfoUpdateModel userInfoUpdateModel) {
 		
-		return null;
+		validateNationalId(userInfoUpdateModel.getNationalId());
+		
+		validateCellPhone(userInfoUpdateModel.getCellPhone());
+		
+		validateEmail(userInfoUpdateModel.getEmail());
+		
+		validateMailingAddress(userInfoUpdateModel.getMailingAddress());
 	}
 	
-	public String validate(UserInfoUpdateModel userInfoUpdateModel) {
-		
-		String nationalId = userInfoUpdateModel.getNationalId();
+	/* *************************************************************************************************** */
+	/* *************************************************************************************************** */
+	
+	private void validateNationalId(String nationalId) {
 		if (nationalId == null) {
-			return "nationalId is required";
+			throw new IllegalArgumentException("nationalId is required");
 		}
 		nationalId = nationalId.trim();
 		if (!nationalId.matches("[0-9]{14}")) {
-			return "nationalId contains invalid characters and shall contain 14 digits only";
+			throw new IllegalArgumentException("nationalId contains invalid characters and shall contain 14 digits only");
 		}
-		
-		String cellPhone = userInfoUpdateModel.getCellPhone();
+	}
+	
+	private void validateCellPhone(String cellPhone) {
 		if (cellPhone == null) {
-			return "cellPhone is required";
+			throw new IllegalArgumentException("cellPhone is required");
 		}
 		cellPhone = cellPhone.trim();
 		if (!cellPhone.matches("(07)[0-9]{9}")) {
-			return "cellPhone contains invalid characters and shall be in this form 071234567";
+			throw new IllegalArgumentException("cellPhone contains invalid characters and shall be in this form 07123456789");
 		}
-		
-		String email = userInfoUpdateModel.getEmail();
+	}
+	
+	private void validateEmail(String email) {
 		if (email == null) {
-			return "email is required";
+			throw new IllegalArgumentException("email is required");
 		}
 		email = email.trim();
 		if (!email.matches("[a-zA-Z0-9_\\.]+(\\@)[a-zA-Z0-9]+(\\.)[a-zA-Z]+")) {
-			return "email format is invalid";
+			throw new IllegalArgumentException("email format is invalid");
 		}
-		
-		String mailingAddress = userInfoUpdateModel.getMailingAddress();
+	}
+	
+	private void validateMailingAddress(String mailingAddress) {
 		if (mailingAddress == null) {
-			return "mailingAddress is required";
+			throw new IllegalArgumentException("mailingAddress is required");
 		}
 		mailingAddress = mailingAddress.trim();
 		if (!mailingAddress.matches("[a-zA-Z0-9-,\\ ]{15,250}")) {
-			return "mailingAddress contains invalid characters and shall contain alphanumeric characters only with maximum of 250";
-		}		
-		
-		return null;
+			throw new IllegalArgumentException("mailingAddress contains invalid characters and shall contain alphanumeric characters only with maximum of 250");
+		}
 	}
 	
 }
