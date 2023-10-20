@@ -1,12 +1,10 @@
 package com.poc.interfaces.rest.controllers;
 
-import static com.poc.interfaces.rest.utils.DateHelper.DATE_FORMAT;
-
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.poc.interfaces.rest.models.UserInfoCreateModel;
@@ -15,6 +13,9 @@ import com.poc.interfaces.rest.models.UserInfoUpdateModel;
 //https://en.wikipedia.org/wiki/Fail-fast approach is used to report validation errors
 @Component
 public class Validator {
+	
+	@Autowired
+	private DateFormat dateFormat;
 	
 	public void validate(UserInfoCreateModel userInfoCreateModel) throws ParseException {
 		
@@ -32,8 +33,7 @@ public class Validator {
 		String dateOfBirthStr = userInfoCreateModel.getDateOfBirth();
 		if (dateOfBirthStr == null) {
 			throw new IllegalArgumentException("dateOfBirth is required");
-		}
-		DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);		
+		}		
 		Date dateOfBirth = dateFormat.parse(dateOfBirthStr);
 		if (dateOfBirth == null) {
 			throw new IllegalArgumentException("dateOfBirth is wrongly formatted and shall be formatted as dd-MM-yyyy");

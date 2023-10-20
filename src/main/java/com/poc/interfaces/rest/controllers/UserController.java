@@ -1,10 +1,7 @@
 package com.poc.interfaces.rest.controllers;
 
-import static com.poc.interfaces.rest.utils.DateHelper.DATE_FORMAT;
-
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +27,9 @@ import com.poc.persistence.entities.UserInfo;
 public class UserController {
 	
 	@Autowired
+	private DateFormat dateFormat;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Autowired
@@ -42,8 +42,7 @@ public class UserController {
 		
 		UserInfo userInfo = new UserInfo();
 		userInfo.setName(userInfoCreateModel.getName());
-		userInfo.setNationalId(userInfoCreateModel.getNationalId());		
-		DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);		
+		userInfo.setNationalId(userInfoCreateModel.getNationalId());				
 		userInfo.setDateOfBirth(dateFormat.parse(userInfoCreateModel.getDateOfBirth()));
 		userInfo.setCellPhone(userInfoCreateModel.getCellPhone());
 		userInfo.setEmail(userInfoCreateModel.getEmail());
@@ -59,19 +58,7 @@ public class UserController {
 			
 		MasterAccount masterAccount = userService.getUser(nationalId);
 		
-		UserInfoReadModel userInfoReadModel = new UserInfoReadModel();
-		userInfoReadModel.setName(masterAccount.getUserInfo().getName());
-		
-		DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-		String dateOfBirth = dateFormat.format(masterAccount.getUserInfo().getDateOfBirth());
-		userInfoReadModel.setDateOfBirth(dateOfBirth);
-		userInfoReadModel.setIban(masterAccount.getIban());
-		userInfoReadModel.setBalance(masterAccount.getBalance());
-		userInfoReadModel.setCurrency(masterAccount.getCurrency().getCode());		
-		userInfoReadModel.setNationalId(masterAccount.getUserInfo().getNationalId());
-		userInfoReadModel.setCellPhone(masterAccount.getUserInfo().getCellPhone());
-		userInfoReadModel.setEmail(masterAccount.getUserInfo().getEmail());
-		userInfoReadModel.setMailingAddress(masterAccount.getUserInfo().getMailingAddress());
+		UserInfoReadModel userInfoReadModel = constructUserInfoReadModel(masterAccount);
 		
 		return new ResponseEntity<UserInfoReadModel>(userInfoReadModel, HttpStatus.OK);
 	}
@@ -99,28 +86,36 @@ public class UserController {
 			
 		List<MasterAccount> masterAccounts = userService.getUsers(pageIndex);
 		
-		DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 		List<UserInfoReadModel> userInfoReadModels = new ArrayList<UserInfoReadModel>();
 		for (int cursor = 0; cursor < masterAccounts.size(); cursor++) {
 			MasterAccount currentElement = masterAccounts.get(cursor);
 			
-			UserInfoReadModel userInfoReadModel = new UserInfoReadModel();
-			userInfoReadModel.setName(currentElement.getUserInfo().getName());
-						
-			String dateOfBirth = dateFormat.format(currentElement.getUserInfo().getDateOfBirth());
-			userInfoReadModel.setDateOfBirth(dateOfBirth);
-			userInfoReadModel.setIban(currentElement.getIban());
-			userInfoReadModel.setBalance(currentElement.getBalance());
-			userInfoReadModel.setCurrency(currentElement.getCurrency().getCode());		
-			userInfoReadModel.setNationalId(currentElement.getUserInfo().getNationalId());
-			userInfoReadModel.setCellPhone(currentElement.getUserInfo().getCellPhone());
-			userInfoReadModel.setEmail(currentElement.getUserInfo().getEmail());
-			userInfoReadModel.setMailingAddress(currentElement.getUserInfo().getMailingAddress());
+			UserInfoReadModel userInfoReadModel = constructUserInfoReadModel(currentElement);
 			
 			userInfoReadModels.add(userInfoReadModel);
 		}		
 		
 		return new ResponseEntity<List<UserInfoReadModel>>(userInfoReadModels, HttpStatus.OK);
 	}
+	
+	/* ********************************************************************************************************* */
+	/* ********************************************************************************************************* */
 
+	private UserInfoReadModel constructUserInfoReadModel(MasterAccount masterAccount) {
+		UserInfoReadModel userInfoReadModel = new UserInfoReadModel();
+		userInfoReadModel.setName(masterAccount.getUserInfo().getName());
+		
+		String dateOfBirth = dateFormat.format(masterAccount.getUserInfo().getDateOfBirth());
+		userInfoReadModel.setDateOfBirth(dateOfBirth);
+		userInfoReadModel.setIban(masterAccount.getIban());
+		userInfoReadModel.setBalance(masterAccount.getBalance());
+		userInfoReadModel.setCurrency(masterAccount.getCurrency().getCode());		
+		userInfoReadModel.setNationalId(masterAccount.getUserInfo().getNationalId());
+		userInfoReadModel.setCellPhone(masterAccount.getUserInfo().getCellPhone());
+		userInfoReadModel.setEmail(masterAccount.getUserInfo().getEmail());
+		userInfoReadModel.setMailingAddress(masterAccount.getUserInfo().getMailingAddress());
+		
+		return userInfoReadModel;
+	}
+	
 }
