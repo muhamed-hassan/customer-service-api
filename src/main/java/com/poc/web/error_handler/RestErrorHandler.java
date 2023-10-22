@@ -25,7 +25,7 @@ public class RestErrorHandler {
 	}
 	
 	@ExceptionHandler
-    public ResponseEntity<Map<String, String>> handleNoDataFoundException(IllegalArgumentException exception) {
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException exception) {
 		
 		String message = exception.getMessage();
 		
