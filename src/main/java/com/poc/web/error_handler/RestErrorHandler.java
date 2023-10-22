@@ -1,4 +1,4 @@
-package com.poc.interfaces.rest.error_handler;
+package com.poc.web.error_handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.poc.interfaces.rest.error_handler.exceptions.NoDataFoundException;
+import com.poc.web.error_handler.exceptions.NoDataFoundException;
 
 @ControllerAdvice
 public class RestErrorHandler {

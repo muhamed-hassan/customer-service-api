@@ -1,4 +1,4 @@
-package com.poc.interfaces.rest.controllers;
+package com.poc.web.controllers;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poc.domain.UserService;
-import com.poc.interfaces.rest.models.UserInfoCreateModel;
-import com.poc.interfaces.rest.models.UserInfoReadModel;
-import com.poc.interfaces.rest.models.UserInfoUpdateModel;
+import com.poc.web.models.UserInfoCreateModel;
+import com.poc.web.models.UserInfoReadModel;
+import com.poc.web.models.UserInfoUpdateModel;
 import com.poc.persistence.entities.MasterAccount;
 import com.poc.persistence.entities.UserInfo;
 

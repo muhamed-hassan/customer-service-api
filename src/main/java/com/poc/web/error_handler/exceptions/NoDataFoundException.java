@@ -1,4 +1,4 @@
-package com.poc.interfaces.rest.error_handler.exceptions;
+package com.poc.web.error_handler.exceptions;
 
 public class NoDataFoundException extends RuntimeException {
 

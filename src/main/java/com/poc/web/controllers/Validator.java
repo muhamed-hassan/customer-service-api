@@ -1,4 +1,4 @@
-package com.poc.interfaces.rest.controllers;
+package com.poc.web.controllers;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,8 +7,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.poc.interfaces.rest.models.UserInfoCreateModel;
-import com.poc.interfaces.rest.models.UserInfoUpdateModel;
+import com.poc.web.models.UserInfoCreateModel;
+import com.poc.web.models.UserInfoUpdateModel;
 
 //https://en.wikipedia.org/wiki/Fail-fast approach is used to report validation errors
 @Component

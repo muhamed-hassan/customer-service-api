@@ -1,4 +1,4 @@
-package com.poc.interfaces.rest.utils;
+package com.poc.web.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

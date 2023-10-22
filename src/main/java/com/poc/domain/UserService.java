@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poc.interfaces.rest.error_handler.exceptions.NoDataFoundException;
-import com.poc.interfaces.rest.models.UserInfoUpdateModel;
+import com.poc.web.error_handler.exceptions.NoDataFoundException;
+import com.poc.web.models.UserInfoUpdateModel;
 import com.poc.persistence.entities.Currency;
 import com.poc.persistence.entities.IbanConfigs;
 import com.poc.persistence.entities.MasterAccount;
