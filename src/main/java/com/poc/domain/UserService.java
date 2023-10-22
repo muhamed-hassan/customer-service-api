@@ -58,9 +58,12 @@ public class UserService {
 	
 	public MasterAccount getUser(String nationalId) {
 		
-		IbanConfigs ibanConfigs = ibanConfigsRepository.findOne(1);
-		
 		MasterAccount masterAccount = masterAccountRepository.getByNationalId(nationalId);
+		if (masterAccount == null) {
+			throw new NoDataFoundException();
+		}		
+		
+		IbanConfigs ibanConfigs = ibanConfigsRepository.findOne(1);
 		masterAccount.toIban(ibanConfigs);
 		
 		return masterAccount;
