@@ -19,6 +19,7 @@ import com.poc.domain.UserService;
 import com.poc.web.models.UserInfoCreateModel;
 import com.poc.web.models.UserInfoReadModel;
 import com.poc.web.models.UserInfoUpdateModel;
+import com.poc.web.validators.Validator;
 import com.poc.persistence.entities.MasterAccount;
 import com.poc.persistence.entities.UserInfo;
 
