@@ -1,6 +1,6 @@
 package com.poc.web.models;
 
-public class UserInfoReadModel extends UserInfoModel {
+public class DetailedUserInfoReadModel extends UserInfoModel {
 
 	private String name;
 	

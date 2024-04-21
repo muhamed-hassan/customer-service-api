@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poc.domain.UserService;
 import com.poc.web.models.UserInfoCreateModel;
-import com.poc.web.models.UserInfoReadModel;
+import com.poc.web.models.DetailedUserInfoReadModel;
+import com.poc.web.models.BriefUserInfoReadModel;
 import com.poc.web.models.UserInfoUpdateModel;
 import com.poc.web.validators.Validator;
 import com.poc.persistence.entities.MasterAccount;
@@ -55,13 +56,23 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "{nationalId}")
-	public ResponseEntity<UserInfoReadModel> getUserByNationalId(@PathVariable String nationalId) {
+	public ResponseEntity<DetailedUserInfoReadModel> getUserByNationalId(@PathVariable String nationalId) {
 			
 		MasterAccount masterAccount = userService.getUser(nationalId);
 		
-		UserInfoReadModel userInfoReadModel = constructUserInfoReadModel(masterAccount);
+		DetailedUserInfoReadModel userInfoReadModel = new DetailedUserInfoReadModel();
+		userInfoReadModel.setName(masterAccount.getUserInfo().getName());		
+		String dateOfBirth = dateFormat.format(masterAccount.getUserInfo().getDateOfBirth());
+		userInfoReadModel.setDateOfBirth(dateOfBirth);
+		userInfoReadModel.setIban(masterAccount.getIban());
+		userInfoReadModel.setBalance(masterAccount.getBalance());
+		userInfoReadModel.setCurrency(masterAccount.getCurrency().getCode());		
+		userInfoReadModel.setNationalId(masterAccount.getUserInfo().getNationalId());
+		userInfoReadModel.setCellPhone(masterAccount.getUserInfo().getCellPhone());
+		userInfoReadModel.setEmail(masterAccount.getUserInfo().getEmail());
+		userInfoReadModel.setMailingAddress(masterAccount.getUserInfo().getMailingAddress());
 		
-		return new ResponseEntity<UserInfoReadModel>(userInfoReadModel, HttpStatus.OK);
+		return new ResponseEntity<DetailedUserInfoReadModel>(userInfoReadModel, HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
@@ -83,40 +94,25 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<UserInfoReadModel>> getUsers(@RequestParam int pageIndex) {
+	public ResponseEntity<List<BriefUserInfoReadModel>> getUsers(@RequestParam int pageIndex) {
 			
 		List<MasterAccount> masterAccounts = userService.getUsers(pageIndex);
 		
-		List<UserInfoReadModel> userInfoReadModels = new ArrayList<UserInfoReadModel>();
+		List<BriefUserInfoReadModel> userInfoReadModels = new ArrayList<BriefUserInfoReadModel>();
 		for (int cursor = 0; cursor < masterAccounts.size(); cursor++) {
+			
 			MasterAccount currentElement = masterAccounts.get(cursor);
 			
-			UserInfoReadModel userInfoReadModel = constructUserInfoReadModel(currentElement);
+			BriefUserInfoReadModel userInfoReadModel = new BriefUserInfoReadModel();
+			userInfoReadModel.setName(currentElement.getUserInfo().getName());
+			userInfoReadModel.setNationalId(currentElement.getUserInfo().getNationalId());
+			userInfoReadModel.setIban(currentElement.getIban());
+			userInfoReadModel.setBalance(currentElement.getBalance());
 			
 			userInfoReadModels.add(userInfoReadModel);
 		}		
 		
-		return new ResponseEntity<List<UserInfoReadModel>>(userInfoReadModels, HttpStatus.OK);
-	}
-	
-	/* ********************************************************************************************************* */
-	/* ********************************************************************************************************* */
-
-	private UserInfoReadModel constructUserInfoReadModel(MasterAccount masterAccount) {
-		UserInfoReadModel userInfoReadModel = new UserInfoReadModel();
-		userInfoReadModel.setName(masterAccount.getUserInfo().getName());
-		
-		String dateOfBirth = dateFormat.format(masterAccount.getUserInfo().getDateOfBirth());
-		userInfoReadModel.setDateOfBirth(dateOfBirth);
-		userInfoReadModel.setIban(masterAccount.getIban());
-		userInfoReadModel.setBalance(masterAccount.getBalance());
-		userInfoReadModel.setCurrency(masterAccount.getCurrency().getCode());		
-		userInfoReadModel.setNationalId(masterAccount.getUserInfo().getNationalId());
-		userInfoReadModel.setCellPhone(masterAccount.getUserInfo().getCellPhone());
-		userInfoReadModel.setEmail(masterAccount.getUserInfo().getEmail());
-		userInfoReadModel.setMailingAddress(masterAccount.getUserInfo().getMailingAddress());
-		
-		return userInfoReadModel;
+		return new ResponseEntity<List<BriefUserInfoReadModel>>(userInfoReadModels, HttpStatus.OK);
 	}
 	
 }
