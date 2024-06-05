@@ -11,7 +11,7 @@ public class DateHelper {
 	
 	@Bean
 	public DateFormat dateFormat() {
-		return new SimpleDateFormat("dd-MM-yyyy");
+		return new SimpleDateFormat("yyyy-MM-dd");
 	}
 
 }

@@ -1,10 +1,5 @@
 package com.poc.web.validators;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.poc.web.models.UserInfoCreateModel;
@@ -13,11 +8,8 @@ import com.poc.web.models.UserInfoUpdateModel;
 //https://en.wikipedia.org/wiki/Fail-fast approach is used to report validation errors
 @Component
 public class Validator {
-	
-	@Autowired
-	private DateFormat dateFormat;
-	
-	public void validate(UserInfoCreateModel userInfoCreateModel) throws ParseException {
+		
+	public void validate(UserInfoCreateModel userInfoCreateModel) {
 		
 		String name = userInfoCreateModel.getName();
 		if (name == null) {
@@ -31,13 +23,9 @@ public class Validator {
 		validateNationalId(userInfoCreateModel.getNationalId());
 		
 		String dateOfBirthStr = userInfoCreateModel.getDateOfBirth();
-		if (dateOfBirthStr == null) {
+		if (dateOfBirthStr == null || dateOfBirthStr.isEmpty()) {
 			throw new IllegalArgumentException("dateOfBirth is required");
-		}		
-		Date dateOfBirth = dateFormat.parse(dateOfBirthStr);
-		if (dateOfBirth == null) {
-			throw new IllegalArgumentException("dateOfBirth is wrongly formatted and shall be formatted as dd-MM-yyyy");
-		}
+		}	
 		
 		validateCellPhone(userInfoCreateModel.getCellPhone());
 		
