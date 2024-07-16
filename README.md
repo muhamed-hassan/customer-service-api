@@ -6,4 +6,4 @@
 
 ***
 
-![interlocking_gears_and_binary_code_abstract](https://user-images.githubusercontent.com/17825804/229341083-54a10727-2d13-4c61-bb25-3b969c716456.png)
+![apep__the_darkness_that_we_cannot_let_win_by_dvktheartist_dh913oj-fullview](https://github.com/user-attachments/assets/fb923c8d-730b-4519-82ac-4a8dcd4ed0bf)
